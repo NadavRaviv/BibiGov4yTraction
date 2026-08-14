@@ -4,57 +4,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ישראל במבט אחד — שלט חוצות</title>
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#3ec8e8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--good:#12894a;--bad:#cc2020;--muted:#8b9199;--ink:#fff}
+:root{--good:#0d7a42;--bad:#ff2e2e}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden;background:#000;color:var(--ink);font-family:'Heebo',system-ui,sans-serif}
-.billboard{position:relative;width:100%;height:100%;display:grid;grid-template-columns:1fr minmax(280px,38vw) 1fr;direction:ltr;align-items:center}
-.panel{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:clamp(16px,3vw,48px);text-align:center;min-height:0}
-.panel .label{font-size:clamp(.85rem,1.6vw,1.1rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:clamp(8px,1.5vw,16px)}
-.panel .year{font-size:clamp(1rem,2vw,1.35rem);font-weight:500;color:var(--muted);margin-bottom:clamp(12px,2vw,24px)}
-.panel .number{font-size:clamp(2.4rem,7vw,6.5rem);font-weight:900;line-height:1;letter-spacing:-.03em;transition:opacity .45s ease,transform .45s ease}
-.panel.before .number{color:#fff}
-.panel.after .number{color:var(--bad)}
-.panel.after .number.good{color:var(--good)}
-.panel.after .number.flat{color:var(--muted)}
-.center{position:relative;display:flex;align-items:center;justify-content:center;height:100%;pointer-events:none;z-index:2}
-.center img{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;display:block}
-.category-wrap{position:absolute;inset-inline:0;top:clamp(20px,4vh,56px);display:flex;justify-content:center;z-index:5;pointer-events:none;padding:0 clamp(16px,4vw,48px)}
-.category{font-size:clamp(1.1rem,2.4vw,2rem);font-weight:800;letter-spacing:-.02em;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:.45em 1.1em;border:1px solid rgba(255,255,255,.12);border-radius:999px;transition:opacity .45s ease,transform .45s ease}
-.category.hide,.number.hide{opacity:0;transform:translateY(14px)}
-@media(max-width:900px){
-  .billboard{grid-template-columns:1fr 1fr;grid-template-rows:1fr auto;grid-template-areas:"before after" "center center"}
-  .panel.before{grid-area:before}
-  .panel.after{grid-area:after}
-  .center{grid-area:center;height:42vh}
-  .panel .number{font-size:clamp(1.8rem,9vw,3.2rem)}
+html,body{height:100%;overflow:hidden;background:#8ec8ef;font-family:'Heebo',system-ui,sans-serif}
+.stage{position:relative;width:100%;height:100%;display:grid;place-items:center;padding:clamp(8px,1.5vh,24px)}
+.billboard{position:relative;width:min(96vw,1400px);aspect-ratio:1400/620;filter:drop-shadow(0 16px 36px rgba(0,0,0,.28))}
+.billboard .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.overlay{position:absolute;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:2}
+.overlay .year{font-size:clamp(.7rem,1.35vw,.95rem);font-weight:700;color:rgba(255,255,255,.75);letter-spacing:.08em;margin-bottom:.2em}
+.overlay .number{font-size:clamp(1.8rem,5.8vw,5rem);font-weight:900;line-height:1.02;letter-spacing:-.03em;word-break:break-word;max-width:100%;transition:opacity .45s ease,transform .45s ease}
+.after-side{left:5.5%;top:8%;width:28%;height:62%}
+.before-side{right:5.5%;top:8%;width:28%;height:62%}
+.before-side .number{color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.15)}
+.after-side .number{color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.15)}
+.after-side .number.bad{color:var(--bad)}
+.after-side .number.good{color:#b8ffd8}
+.after-side .number.flat{color:rgba(255,255,255,.85)}
+.center-person{position:absolute;left:50%;bottom:14.5%;transform:translateX(-50%);height:78%;width:auto;max-width:34%;object-fit:contain;object-position:bottom center;z-index:3;pointer-events:none;filter:drop-shadow(0 8px 22px rgba(0,0,0,.35))}
+.category-wrap{position:absolute;left:8%;right:8%;bottom:2.2%;height:11%;display:flex;align-items:center;justify-content:center;z-index:4}
+.category{font-size:clamp(1rem,2.4vw,2rem);font-weight:800;color:#1a2f4a;letter-spacing:-.02em;text-align:center;transition:opacity .45s ease,transform .45s ease}
+.category.hide,.number.hide{opacity:0;transform:translateY(10px)}
+@media(max-width:700px){
+  .after-side,.before-side{width:34%;top:10%;height:48%}
+  .center-person{height:52%;max-width:42%;bottom:16%}
+  .overlay .number{font-size:clamp(1.3rem,7vw,2.4rem)}
 }
-@media(prefers-reduced-motion:reduce){
-  .category,.number{transition:none}
-}
+@media(prefers-reduced-motion:reduce){.category,.number{transition:none}}
 </style>
 </head>
 <body>
-<div class="billboard">
-  <aside class="panel after" aria-live="polite">
-    <span class="label">אחרי 4 שנים</span>
-    <span class="year">2026</span>
-    <div class="number" id="afterNum">—</div>
-  </aside>
-  <figure class="center">
-    <img src="netanyahu.png" alt="" width="800" height="1200">
-  </figure>
-  <aside class="panel before" aria-live="polite">
-    <span class="label">לפני</span>
-    <span class="year">2022</span>
-    <div class="number" id="beforeNum">—</div>
-  </aside>
-  <div class="category-wrap">
-    <div class="category" id="category">—</div>
+<div class="stage">
+  <div class="billboard">
+    <img class="bg" src="billboard-bg.jpg" alt="" onerror="this.onerror=null;this.src='billboard-bg.svg'">
+    <aside class="overlay after-side" aria-live="polite">
+      <span class="year">2026</span>
+      <div class="number" id="afterNum">—</div>
+    </aside>
+    <img class="center-person" src="netanyahu.png" alt="">
+    <aside class="overlay before-side" aria-live="polite">
+      <span class="year">2022</span>
+      <div class="number" id="beforeNum">—</div>
+    </aside>
+    <div class="category-wrap">
+      <div class="category" id="category">—</div>
+    </div>
   </div>
 </div>
 <script>
@@ -136,52 +134,43 @@ const M=[
 ];
 M.forEach(m=>m.s=build(m.k,m.w));
 
-const RANGE=60;
-const INTERVAL=7000;
-const FADE=450;
+const RANGE=60,INTERVAL=7000,FADE=450;
 const $=id=>document.getElementById(id);
 const els={cat:$('category'),before:$('beforeNum'),after:$('afterNum')};
 
-function fmt(m,v){
-  if(m.ret)return num(v,0);
-  return m.fv(v);
-}
-
+function fmt(m,v){return m.ret?num(v,0):m.fv(v)}
 function colourFor(m){
   const now=m.s[60],then=m.s[60-RANGE],d=now-then;
   const noChange=Math.abs(d)<(m.ret?.5:Math.abs(now)*.0015);
   if(noChange||m.dir==='none')return'flat';
   return(m.dir==='up')===(d>0)?'good':'bad';
 }
-
+function fitNumber(el){
+  el.style.fontSize='';
+  let size=parseFloat(getComputedStyle(el).fontSize);
+  while(el.scrollWidth>el.clientWidth&&size>16){size-=2;el.style.fontSize=size+'px'}
+}
 function show(m){
   const then=m.s[60-RANGE],now=m.s[60];
-  const colour=colourFor(m);
   els.cat.textContent=m.c;
   els.before.textContent=fmt(m,then);
   els.after.textContent=fmt(m,now);
-  els.after.className='number '+colour;
+  els.after.className='number '+colourFor(m);
+  fitNumber(els.before);
+  fitNumber(els.after);
 }
-
 function swap(next){
   [els.cat,els.before,els.after].forEach(el=>el.classList.add('hide'));
-  setTimeout(()=>{
-    show(next);
-    [els.cat,els.before,els.after].forEach(el=>el.classList.remove('hide'));
-  },FADE);
+  setTimeout(()=>{show(next);[els.cat,els.before,els.after].forEach(el=>el.classList.remove('hide'))},FADE);
 }
-
 const pool=M.slice().sort((a,b)=>{
   const rank=c=>colourFor(c)==='bad'?0:colourFor(c)==='flat'?1:2;
   return rank(a)-rank(b);
 });
-
 let i=0;
 show(pool[0]);
-setInterval(()=>{
-  i=(i+1)%pool.length;
-  swap(pool[i]);
-},INTERVAL);
+setInterval(()=>{i=(i+1)%pool.length;swap(pool[i])},INTERVAL);
+window.addEventListener('resize',()=>{fitNumber(els.before);fitNumber(els.after)});
 </script>
 </body>
 </html>
