@@ -4,7 +4,7 @@
 
 [[redirects]]
   from = "/"
-  to = "/billboard.html"
+  to = "/index.html"
   status = 200
 
 [[headers]]
@@ -14,5 +14,10 @@
 
 [[headers]]
   for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.jpg"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
